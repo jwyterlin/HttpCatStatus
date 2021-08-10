@@ -25,6 +25,7 @@ extension ViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = catTableView.dequeueReusableCell(withIdentifier: "catCell", for: indexPath)
+    cell.textLabel?.text = "CatCell"
 
     return cell
   }
