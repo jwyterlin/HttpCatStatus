@@ -10,11 +10,26 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var catTableView: UITableView!
-    
+
+    var imagem503 = UIImage(named: "cat_503")
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestToApiCat()
     }
 
+    func requestToApiCat(){
+        let url = "https://http.cat/404"
+        let urlSession = URLSession(configuration: URLSessionConfiguration.default)
+        urlSession.dataTask(with: URL(string: url)!){ data, response, error in
+            DispatchQueue.main.async {
+                if let data = data {
+                    self.imagem503 = UIImage(data: data)
+                }
+                self.catTableView.reloadData()
+            }
+        }.resume()
+    }
 }
 
 extension ViewController: UITableViewDataSource {
@@ -26,7 +41,7 @@ extension ViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = catTableView.dequeueReusableCell(withIdentifier: "catCell", for: indexPath)
     cell.textLabel?.text = "CatCell"
-    cell.imageView?.image = UIImage(named: "cat_503")
+    cell.imageView?.image = imagem503
 
     return cell
   }
