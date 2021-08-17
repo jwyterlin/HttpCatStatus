@@ -20,12 +20,13 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 7
+    return 8
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = catTableView.dequeueReusableCell(withIdentifier: "catCell", for: indexPath)
     cell.textLabel?.text = "CatCell"
+    cell.imageView?.image = UIImage(named: "cat_503")
 
     return cell
   }
