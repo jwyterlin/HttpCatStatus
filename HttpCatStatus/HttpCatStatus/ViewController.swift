@@ -30,3 +30,9 @@ extension ViewController: UITableViewDataSource {
     return cell
   }
 }
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+}
