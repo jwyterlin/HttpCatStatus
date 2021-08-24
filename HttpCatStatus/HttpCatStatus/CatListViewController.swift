@@ -7,32 +7,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CatListViewController: UIViewController, CatListModelProtocol {
 
     @IBOutlet weak var catTableView: UITableView!
 
-    var imagem503 = UIImage(named: "cat_503")
+    let catListModel = CatListModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestToApiCat()
+        catListModel.catListModelProtocol = self
+        catListModel.requestToApiCat()
     }
 
-    func requestToApiCat(){
-        let url = "https://http.cat/404"
-        let urlSession = URLSession(configuration: URLSessionConfiguration.default)
-        urlSession.dataTask(with: URL(string: url)!){ data, response, error in
-            DispatchQueue.main.async {
-                if let data = data {
-                    self.imagem503 = UIImage(data: data)
-                }
-                self.catTableView.reloadData()
-            }
-        }.resume()
-    }
+  func reloadData() {
+    self.catTableView.reloadData()
+  }
 }
 
-extension ViewController: UITableViewDataSource {
+extension CatListViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 8
@@ -41,13 +33,13 @@ extension ViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = catTableView.dequeueReusableCell(withIdentifier: "catCell", for: indexPath)
     cell.textLabel?.text = "CatCell"
-    cell.imageView?.image = imagem503
+    cell.imageView?.image = catListModel.imagem503
 
     return cell
   }
 }
 
-extension ViewController: UITableViewDelegate {
+extension CatListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
